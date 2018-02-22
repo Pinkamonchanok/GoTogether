@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -20,6 +21,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func LogoutAction(_ sender: Any) {
+        if Auth.auth().currentUser != nil{
+            do{
+                try? Auth.auth().signOut()
+                
+                if Auth.auth().currentUser == nil {
+                    let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Login")as! loginController
+                    self.present(loginVC, animated: true, completion: nil)
+                }
+            }
+        }
+    }
 }
 
